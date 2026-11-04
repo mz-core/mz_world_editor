@@ -1,0 +1,212 @@
+COMANDOS - MZ WORLD PACK
+========================
+
+Resources do pack:
+- mz_world_editor
+- mz_doors
+- mz_props
+
+Ordem recomendada no server.cfg:
+
+ensure oxmysql
+ensure mz_doors
+ensure mz_props
+ensure mz_world_editor
+
+Permissao ACE recomendada:
+
+add_ace group.mz_owner command allow
+add_ace group.mz_owner command.quit deny
+add_ace group.mz_owner group.mz_owner allow
+add_ace group.mz_owner mz.world allow
+add_ace group.mz_owner sbstudio.open allow
+
+
+1) EDITOR DE MUNDO - mz_world_editor
+====================================
+
+/mzworld
+- Ativa ou desativa o modo editor.
+
+/mzwetest
+- Testa a permissao ACE do jogador.
+- Mostra no console/F8 se o jogador tem permissao.
+
+Controles dentro do /mzworld:
+
+E
+- Inspeciona a entidade mirada.
+- Mostra dados como entity, coords, rotation, heading e model hash quando possivel.
+
+G
+- Cria uma porta usando a entidade mirada.
+- Envia os dados para o mz_doors salvar no banco.
+
+H
+- Cria um prop persistente usando a entidade mirada.
+- Envia os dados para o mz_props salvar no banco.
+
+F
+- Congela ou descongela a entidade localmente.
+- Bom para testar objetos/peds/veiculos durante o modo dev.
+
+BACKSPACE
+- Sai do modo editor.
+
+
+2) PORTAS - mz_doors
+====================
+
+/mzdoors list
+- Lista todas as portas criadas.
+
+/mzdoors near
+- Mostra as portas proximas do jogador.
+
+/mzdoors goto [id]
+- Teleporta ate a porta informada.
+Exemplo:
+/mzdoors goto 1
+
+/mzdoors lock [id]
+- Tranca uma porta.
+Exemplo:
+/mzdoors lock 1
+
+/mzdoors unlock [id]
+- Destranca uma porta.
+Exemplo:
+/mzdoors unlock 1
+
+/mzdoors delete [id]
+- Apaga uma porta do banco.
+Exemplo:
+/mzdoors delete 1
+
+/mzdoors rename [id] [nome]
+- Renomeia uma porta.
+Exemplo:
+/mzdoors rename 1 Porta Delegacia Entrada
+
+/mzdoors perm [id] [permissao/none]
+- Define ou remove a permissao ACE da porta.
+Exemplos:
+/mzdoors perm 1 group.mz_owner
+/mzdoors perm 1 mz.world
+/mzdoors perm 1 none
+
+/mzdoors dist [id] [distancia]
+- Altera a distancia de interacao da porta.
+Exemplo:
+/mzdoors dist 1 2.5
+
+/mzdoors group [id] [grupo/none]
+- Define grupo para porta dupla ou conjunto de portas.
+Exemplos:
+/mzdoors group 1 delegacia_entrada
+/mzdoors group 2 delegacia_entrada
+/mzdoors group 1 none
+
+/doorlock
+- Tranca ou destranca a porta mais proxima.
+- Usa permissao da porta, se ela tiver uma definida.
+
+
+3) PROPS - mz_props
+===================
+
+/mzprops list
+- Lista todos os props salvos.
+
+/mzprops near
+- Mostra os props proximos do jogador.
+
+/mzprops goto [id]
+- Teleporta ate o prop informado.
+Exemplo:
+/mzprops goto 1
+
+/mzprops delete [id]
+- Apaga um prop do banco.
+Exemplo:
+/mzprops delete 1
+
+/mzprops rename [id] [nome]
+- Renomeia um prop.
+Exemplo:
+/mzprops rename 1 Cone Evento
+
+/mzprops freeze [id] [0/1]
+- Congela ou descongela um prop persistente.
+Exemplos:
+/mzprops freeze 1 1
+/mzprops freeze 1 0
+
+/mzprops visible [id] [0/1]
+- Mostra ou esconde um prop persistente.
+Exemplos:
+/mzprops visible 1 1
+/mzprops visible 1 0
+
+/mzprops reload
+- Recarrega os props do banco.
+
+
+4) FLUXOS RAPIDOS
+=================
+
+Criar uma porta:
+
+/mzworld
+1. Mire na porta.
+2. Aperte G.
+3. Use /mzdoors list para ver o ID.
+4. Renomeie e configure.
+
+Exemplo:
+/mzdoors list
+/mzdoors rename 1 Porta Delegacia Entrada
+/mzdoors perm 1 group.mz_owner
+/mzdoors dist 1 2.0
+/doorlock
+
+Criar uma porta dupla:
+
+/mzworld
+1. Mire na primeira porta.
+2. Aperte G.
+3. Mire na segunda porta.
+4. Aperte G.
+5. Coloque as duas no mesmo grupo.
+
+Exemplo:
+/mzdoors group 1 delegacia_entrada
+/mzdoors group 2 delegacia_entrada
+
+Criar um prop persistente:
+
+/mzworld
+1. Mire no objeto.
+2. Aperte H.
+3. Use /mzprops list para ver o ID.
+4. Renomeie e configure.
+
+Exemplo:
+/mzprops list
+/mzprops rename 1 Cone Evento
+/mzprops freeze 1 1
+
+Testar permissao:
+
+/mzwetest
+
+Se aparecer allowed=true, a permissao esta OK.
+
+
+5) COMANDOS DE RESTART
+======================
+
+restart mz_doors
+restart mz_props
+restart mz_world_editor
+
